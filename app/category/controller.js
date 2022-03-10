@@ -3,10 +3,16 @@ const Category = require("./model");
 module.exports = {
   index: async (req, res) => {
     try {
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+
+      const alert = { message: alertMessage, status: alertStatus };
       const category = await Category.find();
-      res.render("admin/category/view_category", { category });
+      res.render("admin/category/view_category", { category, alert });
     } catch (err) {
-      console.log(err);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/category");
     }
   },
 
@@ -33,32 +39,43 @@ module.exports = {
       const { name } = req.body;
       let category = await Category({ name });
       await category.save();
+      req.flash("alertMessage", `Berhasil Menambahkan Category`);
+      req.flash("alertStatus", "success");
 
       res.redirect("/category");
     } catch (error) {
-      console.log(error);
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/category");
     }
   },
   actionEdit: async (req, res) => {
     try {
       const { id } = req.params;
       const { name } = req.body;
+      req.flash("alertMessage", `Berhasil Update Category`);
+      req.flash("alertStatus", "success");
 
-      const category = await Category.findOneAndUpdate({ _id: id }, { name });
-
+      await Category.findOneAndUpdate({ _id: id }, { name });
       res.redirect("/category");
     } catch (error) {
-      console.log(error);
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/category");
     }
   },
   actionDelete: async (req, res) => {
     try {
       const { id } = req.params;
       const category = await Category.findOneAndRemove({ _id: id });
+      req.flash("alertMessage", `Berhasil Menghapus Category`);
+      req.flash("alertStatus", "success");
 
       res.redirect("/category");
     } catch (error) {
-      console.log(error);
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/category");
     }
   },
 };
