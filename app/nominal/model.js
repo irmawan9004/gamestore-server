@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 let nominalSchema = mongoose.Schema({
-  itemQty: {
+  coinQty: {
     type: Number,
     default: 0,
   },
-  itemName: {
+  coinName: {
     type: String,
     require: [true, "Please fill item name please ..."],
   },
-  itemPrice: {
+  coinPrice: {
     type: Number,
     default: 0,
   },
