@@ -7,12 +7,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Create Nominal</h1>
+          <h1>Create Voucher</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="/nominal">Nominal</a></li>
+            <li class="breadcrumb-item"><a href="/voucher">Voucher</a></li>
             <li class="breadcrumb-item active">Create</li>
           </ol>
         </div>
@@ -31,16 +31,20 @@
 
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Create Nominal</h3>
+                <h3 class="card-title">Create Voucher</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="/nominal/create" method="post">
+              <form
+                action="/voucher/create"
+                method="post"
+                enctype="multipart/form-data"
+              >
                 <div class="card-body">
                   <div class="form-group">
                     <label for="coinQty">Game Name</label>
                     <input
-                      type="number"
+                      type="text"
                       class="form-control"
                       id="coinQty"
                       placeholder="Enter your Amount of V-Cash..."
@@ -58,60 +62,45 @@
                       data-placeholder="Pilih Jenis Category"
                       required
                     >
+                      <option selected="selected">Pilih Game</option>
                       <% category.forEach(category =>{ %>
                       <option value="<%= category._id %>">
                         <%= category.name %>
                       </option>
                       <% }) %>
-                      <!-- <option value="Gold">Gold</option>
-                      <option value="Diamond">Diamond</option>
-                      <option value="Gems">Gems</option>
-                      <option value="Coin">Coin</option> -->
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="nominal">Game Category</label>
+                    <label for="nominal">Game Nominal</label>
                     <div class="select2-purple">
                       <select
-                        id="nominal"
+                        id="nominals"
                         class="form-control select2"
                         style="width: 100%"
                         name="nominal"
+                        data-placeholder="Pilih Nominal"
+                        multiple="multiple"
                         required
                       >
                         <% nominal.forEach(nominal =>{ %>
                         <option value="<%= nominal._id %>">
-                          <%= nominal.coinName %>
+                          <%= nominal.coinName %> <%= nominal.coinPrice%>
                         </option>
                         <% }) %>
-                        <!-- <option value="Gold">Gold</option>
-                      <option value="Diamond">Diamond</option>
-                      <option value="Gems">Gems</option>
-                      <option value="Coin">Coin</option> -->
                       </select>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="coinQty">Amount of V-Cash</label>
+                    <label for="image">Add Image</label>
                     <input
-                      type="number"
+                      type="file"
+                      name="image"
                       class="form-control"
-                      id="coinQty"
-                      placeholder="Enter your Amount of V-Cash..."
-                      required
-                      name="coinQty"
+                      id="image"
+                      placeholder="Msukkan Gambar"
                     />
-                  </div>
-                  <div class="form-group">
-                    <label for="coinPrice">Price</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="coinPrice"
-                      placeholder="Enter your Price of V-Cash..."
-                      required
-                      name="coinPrice"
-                    />
+                    <br />
+                    <img src="" id="perview" />
                   </div>
                 </div>
                 <div class="card-footer">
@@ -134,3 +123,22 @@
 </div>
 
 <%- include ../../partials/footer.ejs %> <%- include ../../partials/js.ejs %>
+
+<script>
+  function readUrl(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        $("#perview").attr("src", e.target.result);
+        $("#perview").attr("width", "20%");
+        $("#perview").attr("height", "20%");
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#image").change(function () {
+    readUrl(this);
+  });
+</script>
