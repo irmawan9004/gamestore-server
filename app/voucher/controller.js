@@ -12,7 +12,10 @@ module.exports = {
       const alertStatus = req.flash("alertStatus");
 
       const alert = { message: alertMessage, status: alertStatus };
-      const voucher = await Voucher.find();
+      const voucher = await Voucher.find()
+        .populate("category")
+        .populate("nominals");
+      console.log(voucher);
       res.render("admin/voucher/view_voucher", { voucher, alert });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
@@ -52,7 +55,6 @@ module.exports = {
           req.file.originalname.split(".")[
             req.file.originalname.split(".").length - 1
           ];
-
         let filename = req.file.filename + "." + originalExt;
         console.log("filename ==", filename);
         let target_path = path.resolve(
