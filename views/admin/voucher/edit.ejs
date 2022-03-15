@@ -7,13 +7,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Create Voucher</h1>
+          <h1>Update Voucher</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="/voucher">Voucher</a></li>
-            <li class="breadcrumb-item active">Create</li>
+            <li class="breadcrumb-item active">Update</li>
           </ol>
         </div>
       </div>
@@ -31,7 +31,7 @@
 
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Create Voucher</h3>
+                <h3 class="card-title">Update Voucher</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -49,6 +49,7 @@
                       id="coinQty"
                       placeholder="Enter your Amount of V-Cash..."
                       required
+                      value="<%= voucher.name %>"
                       name="name"
                     />
                   </div>
@@ -62,9 +63,12 @@
                       data-placeholder="Pilih Jenis Category"
                       required
                     >
-                      <option selected="selected">Pilih Game</option>
+                      <option selected="selected">Pilih Kategori</option>
                       <% category.forEach(category =>{ %>
-                      <option value="<%= category._id %>">
+                      <option value="<%= category._id %>" <% if(category._id.toString() === voucher?.category?._id.toString()) { %>
+                        selected
+                        <% } %>
+                        >
                         <%= category.name %>
                       </option>
                       <% }) %>
@@ -74,18 +78,23 @@
                     <label for="nominals">Game Nominal</label>
                     <div class="select2-purple">
                       <select
-                        name="nominals"
                         id="nominals"
                         class="form-control select2"
                         style="width: 100%"
+                        name="nominals"
                         data-placeholder="Pilih Nominal"
                         multiple="multiple"
                         required
                       >
                         <% nominal.forEach(nominal =>{ %>
-                        <option value="<%= nominal._id %>">
-                          <%= nominal.coinName %> <%= nominal.coinPrice%>
-                        </option>
+                          <option value="<%= nominal._id %>" <% voucher.nominals.forEach(vnominal =>{  %>
+                            <% if(nominal._id.toString() === voucher.nominals.toString()){ %>
+                              selected
+                            <% } %>
+                            <% }) %>
+                            >
+                            <%= nominal.coinName %> <%= nominal.coinPrice%>
+                          </option>
                         <% }) %>
                       </select>
                     </div>

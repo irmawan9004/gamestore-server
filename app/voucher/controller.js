@@ -33,16 +33,22 @@ module.exports = {
       console.log(error);
     }
   },
-  // viewEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const nominal = await Nominal.findOne({ _id: id });
+  viewEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const voucher = await Voucher.findOne({ _id: id })
+        .populate("category")
+        .populate("nominals");
+      const nominal = await Nominal.find();
+      const category = await Category.find();
 
-  //     res.render("admin/nominal/edit", { nominal });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // },
+      res.render("admin/voucher/edit", { voucher, category, nominal });
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/voucher");
+    }
+  },
 
   actionCreate: async (req, res) => {
     try {
