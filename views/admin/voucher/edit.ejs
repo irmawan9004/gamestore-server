@@ -87,13 +87,13 @@
                         required
                       >
                         <% nominal.forEach(nominal =>{ %>
-                          <option value="<%= nominal._id %>" <% voucher.nominals.forEach(vnominal =>{  %>
-                            <% if(nominal._id.toString() === voucher.nominals.toString()){ %>
+                          <option value="<%= nominal._id %>" <% voucher.nominals.forEach(voucherNominal =>{ %>
+                            <% if(nominal._id.toString() === voucherNominal._id.toString()){ %>
                               selected
                             <% } %>
-                            <% }) %>
-                            >
-                            <%= nominal.coinName %> <%= nominal.coinPrice%>
+                            <% }) %> 
+                            > 
+                            <%= nominal.coinName %> <%= nominal.coinQty %>
                           </option>
                         <% }) %>
                       </select>
@@ -109,7 +109,7 @@
                       placeholder="Msukkan Gambar"
                     />
                     <br />
-                    <img src="" id="perview" />
+                    <img src="http://localhost:3000/uploads/<%= voucher.thumbnail %>" id="perview" />
                   </div>
                 </div>
                 <div class="card-footer">

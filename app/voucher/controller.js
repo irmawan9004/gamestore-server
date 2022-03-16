@@ -97,6 +97,7 @@ module.exports = {
         const voucher = new Voucher({
           name,
           category,
+          nominals,
         });
 
         await voucher.save();
