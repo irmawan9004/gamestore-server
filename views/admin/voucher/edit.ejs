@@ -36,7 +36,7 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form
-                action="/voucher/create"
+                action="/voucher/edit/<%= voucher._id %>?_method=PUT"
                 method="post"
                 enctype="multipart/form-data"
               >
@@ -109,7 +109,7 @@
                       placeholder="Msukkan Gambar"
                     />
                     <br />
-                    <img src="http://localhost:3000/uploads/<%= voucher.thumbnail %>" id="perview" />
+                    <img src="http://localhost:3000/uploads/<%= voucher.thumbnail %>" id="perview" width="20%" height="20%"/>
                   </div>
                 </div>
                 <div class="card-footer">
