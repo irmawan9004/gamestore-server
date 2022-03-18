@@ -36,8 +36,8 @@ module.exports = {
 
   actionCreate: async (req, res) => {
     try {
-      const { name, bankName, accountName } = req.body;
-      let bank = await Bank({ name, bankName, accountName });
+      const { name, bankName, accountNumber } = req.body;
+      let bank = await Bank({ name, bankName, accountNumber });
       await bank.save();
       req.flash("alertMessage", `Berhasil Menambahkan Bank`);
       req.flash("alertStatus", "success");
