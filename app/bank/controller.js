@@ -23,16 +23,16 @@ module.exports = {
       console.log(error);
     }
   },
-  //   viewEdit: async (req, res) => {
-  //     try {
-  //       const { id } = req.params;
-  //       const category = await Category.findOne({ _id: id });
+  viewEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const bank = await Bank.findOne({ _id: id });
 
-  //       res.render("admin/category/edit", { category });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   },
+      res.render("admin/bank/edit", { bank });
+    } catch (error) {
+      console.log(error);
+    }
+  },
 
   actionCreate: async (req, res) => {
     try {
@@ -49,21 +49,24 @@ module.exports = {
       res.redirect("/bank");
     }
   },
-  //   actionEdit: async (req, res) => {
-  //     try {
-  //       const { id } = req.params;
-  //       const { name } = req.body;
-  //       req.flash("alertMessage", `Berhasil Update Category`);
-  //       req.flash("alertStatus", "success");
+  actionEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { name, bankName, accountNumber } = req.body;
+      req.flash("alertMessage", `Berhasil Update Bank`);
+      req.flash("alertStatus", "success");
 
-  //       await Category.findOneAndUpdate({ _id: id }, { name });
-  //       res.redirect("/category");
-  //     } catch (error) {
-  //       req.flash("alertMessage", `${error.message}`);
-  //       req.flash("alertStatus", "danger");
-  //       res.redirect("/category");
-  //     }
-  //   },
+      await Bank.findOneAndUpdate(
+        { _id: id },
+        { name, accountNumber, bankName }
+      );
+      res.redirect("/bank");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/bank");
+    }
+  },
   //   actionDelete: async (req, res) => {
   //     try {
   //       const { id } = req.params;
