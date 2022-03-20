@@ -1,5 +1,5 @@
 const Payment = require("./model");
-const Nominal = require("../nominal/model");
+const Bank = require("../bank/model");
 
 module.exports = {
   index: async (req, res) => {
@@ -19,8 +19,8 @@ module.exports = {
 
   viewCreate: async (req, res) => {
     try {
-      const nominal = Nominal.find();
-      res.render("admin/nominal/create", { nominal });
+      const bank = Bank.find();
+      res.render("admin/payment/create", { bank });
     } catch (error) {
       console.log(error);
     }
