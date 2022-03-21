@@ -51,24 +51,21 @@ module.exports = {
       res.redirect("/payment");
     }
   },
-  // actionEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const { coinName, coinQty, coinPrice } = req.body;
-  //     req.flash("alertMessage", `Berhasil Update Nominal`);
-  //     req.flash("alertStatus", "success");
+  actionEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { type, banks } = req.body;
+      req.flash("alertMessage", `Berhasil Update Payment`);
+      req.flash("alertStatus", "success");
 
-  //     await Nominal.findOneAndUpdate(
-  //       { _id: id },
-  //       { coinName, coinQty, coinPrice }
-  //     );
-  //     res.redirect("/nominal");
-  //   } catch (error) {
-  //     req.flash("alertMessage", `${error.message}`);
-  //     req.flash("alertStatus", "danger");
-  //     res.redirect("/nominal");
-  //   }
-  // },
+      await Payment.findOneAndUpdate({ _id: id }, { type, banks });
+      res.redirect("/payment");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/payment");
+    }
+  },
   // actionDelete: async (req, res) => {
   //   try {
   //     const { id } = req.params;
