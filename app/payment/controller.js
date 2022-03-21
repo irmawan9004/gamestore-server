@@ -8,7 +8,8 @@ module.exports = {
       const alertStatus = req.flash("alertStatus");
 
       const alert = { message: alertMessage, status: alertStatus };
-      const payment = await Payment.find();
+      const payment = await Payment.find().populate("banks");
+      console.log(payment);
       res.render("admin/payment/view_payment", { payment, alert });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
@@ -28,9 +29,9 @@ module.exports = {
   viewEdit: async (req, res) => {
     try {
       const { id } = req.params;
-      const nominal = await Nominal.findOne({ _id: id });
-
-      res.render("admin/nominal/edit", { nominal });
+      const payment = await Payment.findOne({ _id: id });
+      const bank = await Bank.find();
+      res.render("admin/payment/edit", { payment, bank });
     } catch (error) {
       console.log(error);
     }

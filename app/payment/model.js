@@ -9,10 +9,12 @@ let paymentSchema = mongoose.Schema({
     enum: ["Y", "N"],
     default: "Y",
   },
-  banks: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Banks",
-  },
+  banks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Bank",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Payment", paymentSchema);
