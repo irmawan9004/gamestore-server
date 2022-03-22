@@ -27,6 +27,7 @@
     <div class="login-box">
       <!-- /.login-logo -->
       <div class="card card-outline card-primary">
+        <%- include ../../partials/messages.ejs %>
         <div class="card-header text-center">
           <a href="adminlte/index2.html" class="h1"><b>Game</b>Store</a>
         </div>
@@ -35,7 +36,12 @@
 
           <form action="adminlte/index3.html" method="post">
             <div class="input-group mb-3">
-              <input type="email" class="form-control" placeholder="Email" />
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Email"
+              />
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>
@@ -47,6 +53,7 @@
                 type="password"
                 class="form-control"
                 placeholder="Password"
+                name="password"
               />
               <div class="input-group-append">
                 <div class="input-group-text">
