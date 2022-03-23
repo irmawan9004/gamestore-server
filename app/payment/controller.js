@@ -10,7 +10,12 @@ module.exports = {
       const alert = { message: alertMessage, status: alertStatus };
       const payment = await Payment.find().populate("banks");
       console.log(payment);
-      res.render("admin/payment/view_payment", { payment, alert });
+      res.render("admin/payment/view_payment", {
+        payment,
+        alert,
+        name: req.session.user.name,
+        title: "Halaman Payment",
+      });
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
       req.flash("alertStatus", "danger");
@@ -21,7 +26,11 @@ module.exports = {
   viewCreate: async (req, res) => {
     try {
       const bank = await Bank.find();
-      res.render("admin/payment/create", { bank });
+      res.render("admin/payment/create", {
+        bank,
+        name: req.session.user.name,
+        title: "Halaman Create Payment",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +40,12 @@ module.exports = {
       const { id } = req.params;
       const payment = await Payment.findOne({ _id: id });
       const bank = await Bank.find();
-      res.render("admin/payment/edit", { payment, bank });
+      res.render("admin/payment/edit", {
+        payment,
+        bank,
+        name: req.session.user.name,
+        title: "Halaman Update Payment",
+      });
     } catch (error) {
       console.log(error);
     }
