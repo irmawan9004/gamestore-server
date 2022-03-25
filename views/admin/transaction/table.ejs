@@ -18,51 +18,49 @@
         <ul class="list-inline">
           <li class="list-inline-item">
             <img
-              src="http://localhost:3000/upload/<%= transaction.[i].historyVoucherTopUp.thumbnail %>"
+              width="48px"
+              height="48px"
+              src="http://localhost:3000/uploads/<%= transaction[i].historyVoucherTopup.thumbnail %>"
               alt="thumbnail"
             />
           </li>
         </ul>
-        <%= transaction.[i]?.historyVoucherTopUp?.gameName %>
+        <%= transaction[i]?.historyVoucherTopup?.gameName %>
         <br />
-        <%= transaction.[i]?.historyVoucherTopUp?.category %>
+        <%= transaction[i]?.historyVoucherTopup?.category %>
       </td>
       <td>
-        <%= transaction.[i]?.historyVoucherTopUp?.coinName %><%=
-        transaction.[i]?.historyVoucherTopUp?.coinQty %>
+        <%= transaction[i]?.historyVoucherTopup?.coinName ?? '-'%>--<%=
+        transaction[i]?.historyVoucherTopup?.coinQuantity?? '-' %>
       </td>
+      <td><%= transaction[i]?.historyVoucherTopup?.price ?? '-'%></td>
       <td>
         <% if(transaction[i].status === 'pending'){ %>
-        <span class="badge badge-success"> Active </span>
-        <% }else{ %>
-        <span class="badge badge-danger"> Not Active </span>
-        <%} %>
+        <span class="badge badge-warning"> <%= transaction[i].status %> </span>
+        <% }else if(transaction[i].status === 'success'){ %>
+        <span class="badge badge-success"> <%= transaction[i].status %> </span>
+        <%}else{ %>
+        <span class="badge badge-danger"> <%= transaction[i].status %> </span>
+        <% }%>
       </td>
+      <td><%= transaction[i]?.player?.name ?? "-" %></td>
       <td>
         <form
-          action="/transaction/status/<%= transaction[i]._id %>?_method=PUT"
           style="display: inline-block"
+          action="/transaction/status/<%= transaction[i]._id %>?_method=PUT"
           method="post"
         >
-          <button class="btn btn-primary btn-sm">
-            <i class="fas fa-folder"
-              ><% if(transaction[i].status === 'Y'){ %> Deactive <% }else{ %>
-              Active <%} %></i
-            >
+          <button class="btn btn-danger btn-sm">
+            <i class="fas fa-circle-notch mr-2"></i>Decline
           </button>
         </form>
         <form
           style="display: inline-block"
-          action="/transaction/delete/<%= transaction[i]._id %>?_method=DELETE"
+          action="/transaction/status/<%= transaction[i]._id %>?_method=PUT"
           method="post"
         >
-          <a
-            href="/transaction/edit/<%= transaction[i]._id %>"
-            class="btn btn-info btn-sm"
-            ><i class="fas fa-pencil-alt mr-2"></i>Ubah</a
-          >
-          <button class="btn btn-danger btn-sm">
-            <i class="fas fa-trash mr-2"></i>Hapus
+          <button class="btn btn-info btn-sm">
+            <i class="fas fa-check mr-2"></i>Decline
           </button>
         </form>
       </td>

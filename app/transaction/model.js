@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 let transactionSchema = mongoose.Schema(
   {
-    historyVoucherTopUp: {
+    historyVoucherTopup: {
       gameName: {
         type: String,
         require: [true, "Please fill game name  please ..."],
@@ -17,7 +17,7 @@ let transactionSchema = mongoose.Schema(
         type: String,
         require: [true, "Please fill coin name  please ..."],
       },
-      coinQty: {
+      coinQuantity: {
         type: String,
         require: [true, "Please fill coin qty  please ..."],
       },
