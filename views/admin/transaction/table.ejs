@@ -11,16 +11,28 @@
     </tr>
   </thead>
   <tbody>
-    <% for(let i = 0;i < payment.length; i++){ %>
+    <% for(let i = 0;i < transaction.length; i++){ %>
     <tr>
       <td><%= i + 1 %></td>
-      <td><%= payment[i].type %></td>
       <td>
-        <% payment[i].banks.forEach(bank =>{ %> <%= bank.name %>--<%=
-        bank.bankName %>--<%= bank.accountNumber %> <% }) %>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <img
+              src="http://localhost:3000/upload/<%= transaction.[i].historyVoucherTopUp.thumbnail %>"
+              alt="thumbnail"
+            />
+          </li>
+        </ul>
+        <%= transaction.[i]?.historyVoucherTopUp?.gameName %>
+        <br />
+        <%= transaction.[i]?.historyVoucherTopUp?.category %>
       </td>
       <td>
-        <% if(payment[i].status === 'Y'){ %>
+        <%= transaction.[i]?.historyVoucherTopUp?.coinName %><%=
+        transaction.[i]?.historyVoucherTopUp?.coinQty %>
+      </td>
+      <td>
+        <% if(transaction[i].status === 'pending'){ %>
         <span class="badge badge-success"> Active </span>
         <% }else{ %>
         <span class="badge badge-danger"> Not Active </span>
@@ -28,24 +40,24 @@
       </td>
       <td>
         <form
-          action="/payment/status/<%= payment[i]._id %>?_method=PUT"
+          action="/transaction/status/<%= transaction[i]._id %>?_method=PUT"
           style="display: inline-block"
           method="post"
         >
           <button class="btn btn-primary btn-sm">
             <i class="fas fa-folder"
-              ><% if(payment[i].status === 'Y'){ %> Deactive <% }else{ %> Active
-              <%} %></i
+              ><% if(transaction[i].status === 'Y'){ %> Deactive <% }else{ %>
+              Active <%} %></i
             >
           </button>
         </form>
         <form
           style="display: inline-block"
-          action="/payment/delete/<%= payment[i]._id %>?_method=DELETE"
+          action="/transaction/delete/<%= transaction[i]._id %>?_method=DELETE"
           method="post"
         >
           <a
-            href="/payment/edit/<%= payment[i]._id %>"
+            href="/transaction/edit/<%= transaction[i]._id %>"
             class="btn btn-info btn-sm"
             ><i class="fas fa-pencil-alt mr-2"></i>Ubah</a
           >
