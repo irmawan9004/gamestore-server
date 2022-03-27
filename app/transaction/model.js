@@ -80,9 +80,13 @@ let transactionSchema = mongoose.Schema(
         minlength: [9, "phone number harus 9-13 karakter"],
       },
     },
-    category: {
+    player: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Player",
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
