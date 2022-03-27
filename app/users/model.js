@@ -9,6 +9,10 @@ let usersSchema = mongoose.Schema(
       type: String,
       require: [true, "Please fill name please ..."],
     },
+    username: {
+      type: String,
+      require: [true, "Please fill username please ..."],
+    },
     password: {
       type: String,
       require: [true, "Please fill password please ..."],
