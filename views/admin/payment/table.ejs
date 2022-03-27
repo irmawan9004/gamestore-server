@@ -15,7 +15,7 @@
       <td><%= payment[i].type %></td>
       <td>
         <% payment[i].banks.forEach(bank =>{ %> <%= bank.name %>--<%=
-        bank.bankName %>--<%= bank.accountNumber %> <% }) %>
+        bank.bankName %>--<%= bank.noRekening %> <% }) %>
       </td>
       <td>
         <% if(payment[i].status === 'Y'){ %>

@@ -9,7 +9,7 @@ let bankSchema = mongoose.Schema(
       type: String,
       require: [true, "Please fill bank name"],
     },
-    accountNumber: {
+    noRekening: {
       type: Number,
       require: [true, "Please fill account number"],
     },
