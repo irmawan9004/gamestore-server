@@ -1,5 +1,7 @@
 const Player = require("./model");
-const Voucher = require("../voucher/model");
+const path = require("path");
+const fs = require("fs");
+const config = require("../../config");
 
 module.exports = {
   landingPage: async (req, res) => {
@@ -20,7 +22,7 @@ module.exports = {
       const { id } = req.params;
       const voucher = await Voucher.findOne({ _id: id })
         .populate("category")
-        .populate("user")
+        .populate("user ")
         .populate("nominals");
 
       if (!voucher) {

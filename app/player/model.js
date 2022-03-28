@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const HASH_ROUMD = 10;
 let playerSchema = mongoose.Schema(
   {
     email: {
@@ -39,7 +41,7 @@ let playerSchema = mongoose.Schema(
       default: "user",
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       require: [true, "Please fill phoneNumber please ..."],
       maxlength: [13, "phoneNumber harus 9-13 karakter"],
       minlength: [9, "phoneNumber harus 9-13 karakter"],
@@ -56,5 +58,20 @@ let playerSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+playerSchema.path("email").validate(
+  async function (value) {
+    try {
+      const count = await this.model("Player").countDocuments({ email: value });
+      return !count;
+    } catch (error) {
+      throw error;
+    }
+  },
+  (attr) => `${attr.value} sudah terdaftar`
+);
+playerSchema.pre("save", function (next) {
+  this.password = bcrypt.hashSync(this.password, HASH_ROUMD);
+  next();
+});
 
 module.exports = mongoose.model("Player", playerSchema);
