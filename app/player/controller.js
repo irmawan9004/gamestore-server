@@ -73,5 +73,37 @@ module.exports = {
 
     if (!res_bank)
       return res.status(404).json({ message: "bank  tidak ditemukan" });
+
+    let tax = (10 / 100) * res_nominal._doc.price;
+    let value = res_nominal._doc.price + tax;
+    const payload = {
+      historyVoucherTopup: {
+        gameName: res_voucher._doc.name,
+        category: res_voucher._doc.category ? res_voucher._doc.category : "",
+        thumbnail: res_voucher._doc.thumbnail,
+        coinName: res_nominal._doc.coinName,
+        coinQuantity: res_nominal._doc.coinQuantity,
+        price: res_nominal._doc.price,
+      },
+      historyPayment: {
+        name: res_bank._doc.name,
+        type: res_payment._doc.type,
+        bankName: res_bank._doc.bankName,
+        accountNumber: res_bank._doc.noRekening,
+      },
+      name: name,
+      accountUser: accountUser,
+      tax: tax,
+      value: value,
+      player: req.player._id,
+      historyUser: {
+        name: res_voucher._doc.user?.name,
+        phoneNumber: res_voucher._doc.user?.phoneNumber,
+      },
+      category: res_voucher._doc.category?._id,
+      user: res_voucher._doc.user?._id,
+    };
+
+    res.status(201).json({ data: payload });
   },
 };

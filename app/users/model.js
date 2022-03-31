@@ -17,6 +17,10 @@ let usersSchema = mongoose.Schema(
       type: String,
       require: [true, "Please fill password please ..."],
     },
+    phoneNumber: {
+      type: String,
+      require: [true, "Please fill phoneNumber please ..."],
+    },
     status: {
       type: String,
       enum: ["Y", "N"],
