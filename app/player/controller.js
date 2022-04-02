@@ -116,6 +116,12 @@ module.exports = {
       if (status.length) {
         criteria = {
           ...criteria,
+          status: { $regex: `${status}`, $options: "i" },
+        };
+      }
+      if (req.player._id) {
+        criteria = {
+          ...criteria,
           player: req.player._id,
         };
       }
