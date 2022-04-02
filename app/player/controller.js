@@ -192,6 +192,21 @@ module.exports = {
         .sort({ updatedAt: 1 });
 
       res.status(200).json({ data: history, count: count });
+    } catch (error) {}
+  },
+
+  profile: async (req, res) => {
+    try {
+      const profile = {
+        id: req.player._id,
+        name: req.player.name,
+        username: req.player.username,
+        avatar: req.player.avatar,
+        email: req.player.email,
+        phone_number: req.player.phoneNumber,
+      };
+
+      res.status(200).json({ data: profile });
     } catch (error) {
       res
         .status(500)
