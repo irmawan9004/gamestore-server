@@ -32,10 +32,11 @@ module.exports = {
         .populate("user")
         .populate("nominals");
 
+      const payment = await Payment.find().populate("banks");
       if (!voucher) {
         res.status(404).json({ message: "Voucher not found" });
       } else {
-        res.status(200).json({ data: voucher });
+        res.status(200).json({ data: { detail: voucher, payments: payment } });
       }
     } catch (error) {
       res
